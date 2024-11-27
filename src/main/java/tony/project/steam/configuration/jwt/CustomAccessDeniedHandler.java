@@ -1,4 +1,4 @@
-package tony.project.steam.configuration;
+package tony.project.steam.configuration.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

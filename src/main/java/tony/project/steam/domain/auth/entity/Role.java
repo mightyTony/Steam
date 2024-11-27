@@ -1,4 +1,4 @@
-package tony.project.steam.domain.auth;
+package tony.project.steam.domain.auth.entity;
 
 public enum Role {
     ROLE_USER("ROLE_USER"),

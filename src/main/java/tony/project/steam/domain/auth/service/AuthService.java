@@ -7,8 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tony.project.steam.common.Constrant;
-import tony.project.steam.configuration.JwtTokenProvider;
-import tony.project.steam.domain.auth.User;
+import tony.project.steam.configuration.jwt.JwtTokenProvider;
+import tony.project.steam.domain.auth.entity.User;
 import tony.project.steam.domain.auth.entity.dto.request.JoinRequest;
 import tony.project.steam.domain.auth.entity.dto.response.TokenResponse;
 import tony.project.steam.domain.auth.repository.UserRepository;
@@ -65,6 +65,7 @@ public class AuthService {
                 encodedPassword,
                 request.getName(),
                 request.getEmail(),
+                request.getProfilePicture(),
                 request.getPhoneNumber());
 
         userRepository.save(user);

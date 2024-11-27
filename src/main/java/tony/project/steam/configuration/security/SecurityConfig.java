@@ -1,4 +1,4 @@
-package tony.project.steam.configuration;
+package tony.project.steam.configuration.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -15,6 +15,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import tony.project.steam.configuration.jwt.CustomAccessDeniedHandler;
+import tony.project.steam.configuration.jwt.CustomAuthenticationEntryPoint;
+import tony.project.steam.configuration.jwt.JwtAuthenticationFilter;
+import tony.project.steam.configuration.jwt.JwtTokenProvider;
 
 import java.util.List;
 

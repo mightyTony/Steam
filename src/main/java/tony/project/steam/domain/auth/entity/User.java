@@ -1,9 +1,10 @@
-package tony.project.steam.domain.auth;
+package tony.project.steam.domain.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column(name = "user_id" , unique = true, nullable = false)
     private String userId;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "nickname", nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
@@ -38,6 +39,10 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
+
+    @Column(name = "profile_picture")
+    @ColumnDefault("default.jpg")
+    private String profilePicture;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -72,21 +77,22 @@ public class User extends BaseTimeEntity implements UserDetails {
         return true;
     }
 
-    public static User forUser(String userId, String username, String password, String name, String email, String phoneNumber) {
-        return new User(userId, username, password, name, email, phoneNumber, Role.ROLE_USER);
+    public static User forUser(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
+        return new User(userId, username, password, name, email, phoneNumber, profilePicture, Role.ROLE_USER);
     }
 
-    public static User forAdmin(String userId, String username, String password, String name, String email, String phoneNumber) {
-        return new User(userId, username, password, name, email, phoneNumber, Role.ROLE_ADMIN);
+    public static User forAdmin(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
+        return new User(userId, username, password, name, email, phoneNumber, profilePicture, Role.ROLE_ADMIN);
     }
 
-    private User(String userId, String username, String password, String name, String email, String phoneNumber, Role role) {
+    private User(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture, Role role) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.profilePicture = profilePicture;
         this.role = role;
     }
 }

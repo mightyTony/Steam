@@ -14,7 +14,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tony.project.steam.common.Constrant;
-import tony.project.steam.configuration.JwtTokenProvider;
+import tony.project.steam.configuration.jwt.JwtTokenProvider;
 import tony.project.steam.domain.auth.entity.dto.request.JoinRequest;
 import tony.project.steam.domain.auth.entity.dto.request.LoginRequest;
 import tony.project.steam.domain.auth.entity.dto.response.TokenResponse;

@@ -1,4 +1,4 @@
-package tony.project.steam.configuration;
+package tony.project.steam.configuration.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -14,8 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import tony.project.steam.common.Constrant;
-import tony.project.steam.domain.auth.Role;
-import tony.project.steam.domain.auth.User;
+import tony.project.steam.configuration.security.UserDetailsServiceImpl;
+import tony.project.steam.domain.auth.entity.Role;
+import tony.project.steam.domain.auth.entity.User;
 import tony.project.steam.domain.auth.repository.UserRepository;
 import tony.project.steam.exception.CustomException;
 import tony.project.steam.exception.ErrorCode;

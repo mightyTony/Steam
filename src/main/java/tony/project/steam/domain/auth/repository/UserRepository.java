@@ -2,7 +2,7 @@ package tony.project.steam.domain.auth.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tony.project.steam.domain.auth.User;
+import tony.project.steam.domain.auth.entity.User;
 
 import java.util.Optional;
 

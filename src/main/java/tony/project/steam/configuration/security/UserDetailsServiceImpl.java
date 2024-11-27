@@ -1,4 +1,4 @@
-package tony.project.steam.configuration;
+package tony.project.steam.configuration.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

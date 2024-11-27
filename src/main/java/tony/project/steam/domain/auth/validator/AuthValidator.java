@@ -3,7 +3,7 @@ package tony.project.steam.domain.auth.validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import tony.project.steam.domain.auth.User;
+import tony.project.steam.domain.auth.entity.User;
 import tony.project.steam.domain.auth.entity.dto.request.JoinRequest;
 import tony.project.steam.domain.auth.repository.UserRepository;
 import tony.project.steam.exception.CustomException;

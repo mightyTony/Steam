@@ -26,4 +26,7 @@ public class JoinRequest {
 
     @Schema(description = "전화번호", example = "010-1234-5678")
     private String phoneNumber;
+
+    @Schema(description = "프로필 사진", example = "default.jpg")
+    private String profilePicture;
 }
