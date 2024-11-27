@@ -2,6 +2,7 @@ package tony.project.steam.domain.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -16,7 +17,7 @@ import java.util.Collections;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User extends BaseTimeEntity implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,10 +42,12 @@ public class User extends BaseTimeEntity implements UserDetails {
     private String phoneNumber;
 
     @Column(name = "profile_picture")
-    @ColumnDefault("default.jpg")
     private String profilePicture;
 
+
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     @Override
@@ -77,15 +80,16 @@ public class User extends BaseTimeEntity implements UserDetails {
         return true;
     }
 
-    public static User forUser(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
-        return new User(userId, username, password, name, email, phoneNumber, profilePicture, Role.ROLE_USER);
-    }
+//    public static User forUser(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
+//        return new User(userId, username, password, name, email, phoneNumber, profilePicture, Role.ROLE_USER);
+//    }
+//
+//    public static User forAdmin(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
+//        return new User(userId, username, password, name, email, phoneNumber, profilePicture, Role.ROLE_ADMIN);
+//    }
 
-    public static User forAdmin(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
-        return new User(userId, username, password, name, email, phoneNumber, profilePicture, Role.ROLE_ADMIN);
-    }
-
-    private User(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture, Role role) {
+    @Builder
+    private User(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -93,6 +97,6 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.profilePicture = profilePicture;
-        this.role = role;
+        this.role = Role.ROLE_USER;
     }
 }

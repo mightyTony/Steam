@@ -59,14 +59,23 @@ public class AuthService {
         // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-        User user = User.forUser(
-                request.getUserId(),
-                request.getUsername(),
-                encodedPassword,
-                request.getName(),
-                request.getEmail(),
-                request.getProfilePicture(),
-                request.getPhoneNumber());
+//        User user = User.forUser(
+//                request.getUserId(),
+//                request.getUsername(),
+//                encodedPassword,
+//                request.getName(),
+//                request.getEmail(),
+//                request.getProfilePicture(),
+//                request.getPhoneNumber());
+        User user = User.builder()
+                .userId(request.getUserId())
+                .username(request.getUsername())
+                .password(encodedPassword)
+                .name(request.getName())
+                .email(request.getEmail())
+                .phoneNumber(request.getPhoneNumber())
+                .profilePicture(request.getProfilePicture())
+                .build();
 
         userRepository.save(user);
     }

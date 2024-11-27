@@ -34,21 +34,21 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web
-                .ignoring().requestMatchers(
-                        "/h2-console/**",
-                        "/favicon.ico",
-                        "/error",
-                        "/css/**",
-                        "/js/**",
-                        "/img/**",
-                        "/swagger-ui/**",
-                        "/swagger-resources/**",
-                        "/v3/api-docs/**"
-                        );
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return web -> web
+//                .ignoring().requestMatchers(
+//                        "/h2-console/**",
+//                        "/favicon.ico",
+//                        "/error",
+//                        "/css/**",
+//                        "/js/**",
+//                        "/img/**",
+//                        "/swagger-ui/**",
+//                        "/swagger-resources/**",
+//                        "/v3/api-docs/**"
+//                        );
+//    }
 
     @Bean
     public CorsConfigurationSource corsConfiguration() {
@@ -80,6 +80,7 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/h2-console/**", "/favicon.ico", "/error", "/css/**", "/js/**", "/img/**").permitAll()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 )
                 .authorizeHttpRequests((auth) -> auth
