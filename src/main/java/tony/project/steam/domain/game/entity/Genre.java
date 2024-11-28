@@ -12,8 +12,7 @@ public class Genre {
     @Column(name = "genre_code")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_code")
+    @OneToOne
     private Game game;
 
     @Column(name = "genre_1")

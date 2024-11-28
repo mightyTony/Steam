@@ -5,6 +5,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import tony.project.steam.common.BaseTimeEntity;
+import tony.project.steam.domain.cart.entity.Cart;
+import tony.project.steam.domain.profile.entity.MyGame;
+import tony.project.steam.domain.wishlist.entity.WishList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,4 +46,20 @@ public class Game extends BaseTimeEntity {
 
     @Column(name = "game_discount")
     private Integer discount; // 할인율
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_code")
+    private Genre genre; // 장르
+
+//    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<Grade> grades = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<Cart> carts = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<WishList> wishLists = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<MyGame> myGames = new ArrayList<>();
 }

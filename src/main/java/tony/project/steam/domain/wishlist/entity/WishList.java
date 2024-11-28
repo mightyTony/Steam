@@ -1,4 +1,4 @@
-package tony.project.steam.domain.wish.entity;
+package tony.project.steam.domain.wishlist.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -11,7 +11,7 @@ import tony.project.steam.domain.game.entity.Game;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "wish")
-public class Wish {
+public class WishList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +26,11 @@ public class Wish {
     @JoinColumn(name = "game_code", nullable = false)
     private Game game;
 
-    public static Wish createWish(User user, Game game) {
-        Wish wish = new Wish();
-        wish.user = user;
-        wish.game = game;
+    public static WishList createWish(User user, Game game) {
+        WishList wishList = new WishList();
+        wishList.user = user;
+        wishList.game = game;
 
-        return wish;
+        return wishList;
     }
 }

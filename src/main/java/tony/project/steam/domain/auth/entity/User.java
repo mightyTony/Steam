@@ -5,11 +5,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import tony.project.steam.common.BaseTimeEntity;
+import tony.project.steam.domain.profile.entity.UserProfile;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -44,11 +44,28 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column(name = "profile_picture")
     private String profilePicture;
 
-
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_code")
+    private UserProfile userProfile;
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<Comment> comments = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<Friend> friends = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<Cart> carts = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<WishList> wishlists = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<MyGame> myGames = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -80,16 +97,8 @@ public class User extends BaseTimeEntity implements UserDetails {
         return true;
     }
 
-//    public static User forUser(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
-//        return new User(userId, username, password, name, email, phoneNumber, profilePicture, Role.ROLE_USER);
-//    }
-//
-//    public static User forAdmin(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
-//        return new User(userId, username, password, name, email, phoneNumber, profilePicture, Role.ROLE_ADMIN);
-//    }
-
     @Builder
-    private User(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
+    public User(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
         this.userId = userId;
         this.username = username;
         this.password = password;

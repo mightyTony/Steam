@@ -15,11 +15,11 @@ public class UserProfile {
     @Column(name = "profile_code")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_code")
+    private String nickname; // 닉네임
+
+    private String content; // 할 말
+
+    @OneToOne(mappedBy = "userProfile")
     private User user;
 
-    @Column(nullable = false)
-    @Lob
-    private String content;
 }
