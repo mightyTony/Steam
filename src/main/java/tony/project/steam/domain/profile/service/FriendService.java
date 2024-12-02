@@ -9,10 +9,13 @@ import tony.project.steam.domain.auth.repository.UserRepository;
 import tony.project.steam.domain.auth.validator.AuthValidator;
 import tony.project.steam.domain.profile.entity.Friend;
 import tony.project.steam.domain.profile.entity.FriendStatus;
+import tony.project.steam.domain.profile.entity.dto.response.FriendResponse;
 import tony.project.steam.domain.profile.repository.FriendRepository;
 import tony.project.steam.domain.profile.validator.FriendValidator;
 import tony.project.steam.exception.CustomException;
 import tony.project.steam.exception.ErrorCode;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -45,4 +48,18 @@ public class FriendService {
 
         friendRepository.save(friendShip);
     }
+
+    // 친구 요청들 조회
+    public List<FriendResponse> getFriendRequests(User user) {
+        List<FriendResponse> requests = friendRepository.findFriendRequests(user);
+        return requests;
+    }
+
+    // 해당 친구 요청 삭제
+    @Transactional
+    public void deleteFriendRequest(Long id) {
+        friendRepository.deleteById(id);
+    }
+
+    // 친구 요청 수락, 거절
 }
