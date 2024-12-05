@@ -1,30 +1,27 @@
 package tony.project.steam.domain.profile.entity;
 
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import tony.project.steam.common.BaseTimeEntity;
 import tony.project.steam.domain.auth.entity.User;
 
-@Entity
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "profile_comment")
-public class Comment extends BaseTimeEntity {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_code")
+public class Comment {
     private Long id;
-
-    @Column(nullable = false)
+    private Long user_code; // user.id
     private String content; // 댓글 내용
+    private LocalDateTime created_date;
+    private LocalDateTime modified_date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_code")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profile_code")
-    private UserProfile profile;
+    public static Comment makeReply(Long user_code, String content) {
+        Comment comment = new Comment();
+        comment.user_code = user_code;
+        comment.content = content;
+        comment.created_date = LocalDateTime.now();
+        comment.modified_date = LocalDateTime.now();
+        return comment;
+    }
 }

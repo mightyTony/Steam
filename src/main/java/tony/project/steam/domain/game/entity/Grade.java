@@ -1,34 +1,31 @@
 package tony.project.steam.domain.game.entity;
 
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import tony.project.steam.common.BaseTimeEntity;
-import tony.project.steam.domain.auth.entity.User;
+
+import java.time.LocalDateTime;
 
 // 게임 평점/평가 엔티티
-@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "grade")
-public class Grade extends BaseTimeEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "grade_code")
+public class Grade {
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_code")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_code")
-    private Game game;
-
-    @Column(name = "grade_content", nullable = false)
-    @Lob
+    private Long game_code;
+    private Long user_code;
     private String content;
-
-    @Column(name = "grade_rate")
     private Boolean rate; // true: 추천, false: 비추천
+    private LocalDateTime created_date;
+    private LocalDateTime modified_date;
+
+    public static Grade createReply(Long game_code, Long user_code, String content, Boolean rate) {
+        Grade grade = new Grade();
+        grade.game_code = game_code;
+        grade.user_code = user_code;
+        grade.content = content;
+        grade.rate = rate;
+        grade.created_date = LocalDateTime.now();
+        grade.modified_date = LocalDateTime.now();
+        return grade;
+    }
 }

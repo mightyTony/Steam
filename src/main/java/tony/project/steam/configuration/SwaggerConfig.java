@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @OpenAPIDefinition(
         info = @io.swagger.v3.oas.annotations.info.Info(
-                title = "옥션 API",
+                title = "스팀 API",
                 version = "1.0",
-                description = "옥션 API"
+                description = "스팀 API"
         )
 )
 public class SwaggerConfig {

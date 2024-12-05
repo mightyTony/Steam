@@ -17,7 +17,7 @@ import tony.project.steam.common.Constrant;
 import tony.project.steam.configuration.security.UserDetailsServiceImpl;
 import tony.project.steam.domain.auth.entity.Role;
 import tony.project.steam.domain.auth.entity.User;
-import tony.project.steam.domain.auth.repository.UserRepository;
+import tony.project.steam.domain.auth.mapper.AuthMapper;
 import tony.project.steam.exception.CustomException;
 import tony.project.steam.exception.ErrorCode;
 
@@ -33,12 +33,12 @@ public class JwtTokenProvider {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final RedisTemplate<String, Object> redisTemplate;
-    private final UserRepository userRepository;
+    private final AuthMapper authMapper;
 
     private static final Key secreyKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public Role getUserRole(String userId) {
-        User user = userRepository.findByUserId(userId)
+        User user = authMapper.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         return user.getRole();

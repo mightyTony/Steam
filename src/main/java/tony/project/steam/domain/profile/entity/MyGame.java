@@ -1,26 +1,26 @@
 package tony.project.steam.domain.profile.entity;
 
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import tony.project.steam.domain.auth.entity.User;
-import tony.project.steam.domain.game.entity.Game;
 
-@Entity
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "my_game")
 public class MyGame {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "my_game_code")
     private Long id;
+    private Long user_code; // user.id
+    private Long game_code; // game.id
+    private LocalDateTime created_date;
+    private LocalDateTime modified_date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_code")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_code")
-    private Game game;
+    public static MyGame intoMyGame(Long user_code, Long game_code) {
+        MyGame myGame = new MyGame();
+        myGame.user_code = user_code;
+        myGame.game_code = game_code;
+        myGame.created_date = LocalDateTime.now();
+        myGame.modified_date = LocalDateTime.now();
+        return myGame;
+    }
 }

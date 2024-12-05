@@ -1,26 +1,24 @@
 package tony.project.steam.domain.game.entity;
 
-import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "genre")
+@Getter
 public class Genre {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "genre_code")
     private Long id;
-
-    @OneToOne
-    private Game game;
-
-    @Column(name = "genre_1")
+    private Long game_code;
     private String genre_1;
-
-    @Column(name = "genre_2")
     private String genre_2;
-
-    @Column(name = "genre_3")
     private String genre_3;
+
+    public static Genre createGenre(Long game_code, String genre_1, String genre_2, String genre_3) {
+        Genre genre = new Genre();
+        genre.game_code = game_code;
+        genre.genre_1 = genre_1;
+        genre.genre_2 = genre_2;
+        genre.genre_3 = genre_3;
+        return genre;
+    }
 }

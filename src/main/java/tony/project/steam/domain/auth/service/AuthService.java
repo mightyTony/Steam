@@ -11,7 +11,7 @@ import tony.project.steam.configuration.jwt.JwtTokenProvider;
 import tony.project.steam.domain.auth.entity.User;
 import tony.project.steam.domain.auth.entity.dto.request.JoinRequest;
 import tony.project.steam.domain.auth.entity.dto.response.TokenResponse;
-import tony.project.steam.domain.auth.repository.UserRepository;
+import tony.project.steam.domain.auth.mapper.AuthMapper;
 import tony.project.steam.domain.auth.validator.AuthValidator;
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class AuthService {
 
-    private final UserRepository userRepository;
+    private final AuthMapper authMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisTemplate<String, Object> redisTemplate;
@@ -77,6 +77,7 @@ public class AuthService {
                 .profilePicture(request.getProfilePicture())
                 .build();
 
-        userRepository.save(user);
+//        userRepository.save(user);
+        authMapper.save(user);
     }
 }

@@ -18,7 +18,8 @@ public enum ErrorCode {
     ACCESS_DENIED(HttpStatus.FORBIDDEN,"AUTH-003", "접근 권한이 없습니다." ),
 
     // Friend
-    ALREADY_REQUESTED(HttpStatus.BAD_REQUEST, "FRIENDSHIP-001" ,"이미 친구 관계 이거나 친구 요청이 있습니다." );
+    ALREADY_REQUESTED(HttpStatus.BAD_REQUEST, "FRIENDSHIP-001" ,"이미 친구 관계 이거나 친구 요청이 있습니다." ),
+    REQUEST_NOT_FOUND(HttpStatus.BAD_REQUEST,"FREIENDSHIP-002" , "존재 하지 않은 요청 입니다.");
 
     private final HttpStatus status;
     private final String code;

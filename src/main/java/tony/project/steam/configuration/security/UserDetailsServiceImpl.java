@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import tony.project.steam.domain.auth.repository.UserRepository;
+import tony.project.steam.domain.auth.mapper.AuthMapper;
 import tony.project.steam.exception.CustomException;
 import tony.project.steam.exception.ErrorCode;
 
@@ -16,11 +16,11 @@ import tony.project.steam.exception.ErrorCode;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AuthMapper authMapper;
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         log.info("[loadUserByUsername] userId: {}", userId);
-        return userRepository.findByUserId(userId)
+        return authMapper.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     }
 }

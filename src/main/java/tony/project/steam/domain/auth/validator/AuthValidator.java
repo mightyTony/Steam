@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import tony.project.steam.domain.auth.entity.User;
 import tony.project.steam.domain.auth.entity.dto.request.JoinRequest;
-import tony.project.steam.domain.auth.repository.UserRepository;
+import tony.project.steam.domain.auth.mapper.AuthMapper;
 import tony.project.steam.exception.CustomException;
 import tony.project.steam.exception.ErrorCode;
 
@@ -16,23 +16,23 @@ import tony.project.steam.exception.ErrorCode;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthValidator {
-    private final UserRepository userRepository;
+    private final AuthMapper authMapper;
     private final PasswordEncoder passwordEncoder;
 
     public void validate(JoinRequest request) {
-        if(userRepository.existsByEmail(request.getEmail())) {
+        if(authMapper.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException("이미 사용중인 이메일입니다.");
         }
-        if(userRepository.existsByUserId(request.getUserId())) {
+        if(authMapper.existsByUserId(request.getUserId())) {
             throw new IllegalArgumentException("이미 사용중인 아이디입니다.");
         }
     }
 
     // 아이디, 비번 체크
     public void authCheck(String userId, String rawPassword) {
-        User user = userRepository.findByUserId(userId)
+        User user = authMapper.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
-
+        log.info("[AuthValidator] authCheck - 비번: {}", rawPassword, user.getPassword());
         if(!passwordEncoder.matches(rawPassword, user.getPassword())) {
             throw new CustomException(ErrorCode.AUTHENTICATION_FAILED);
         }
@@ -52,24 +52,31 @@ public class AuthValidator {
 
     // 유저 정보 중복 체크
     public void isDuplicateInformation(String email, String phoneNumber) {
-        if(userRepository.existsByEmail(email)) {
+        if(authMapper.existsByEmail(email)) {
             throw new CustomException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
-        if(userRepository.existsByPhoneNumber(phoneNumber)) {
+        if(authMapper.existsByPhoneNumber(phoneNumber)) {
             throw new CustomException(ErrorCode.PHONE_NUMBER_ALREADY_EXISTS);
         }
     }
 
     // 유저 존재 체크
     public void isUserExist(String userId) {
-        if(!userRepository.existsByUserId(userId)) {
+        if(!authMapper.existsByUserId(userId)) {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
     }
 
     // 유저 존재 체크, 유저 반환
     public User isUserExistReturnUser(String userId) {
-        return userRepository.findByUserId(userId)
+        return authMapper.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    }
+
+    public void isUserExistByNickname(String nickname) {
+        if(!authMapper.existsByNickname(nickname)){
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        }
+
     }
 }

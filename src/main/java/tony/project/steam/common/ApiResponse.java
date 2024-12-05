@@ -29,9 +29,20 @@ public class ApiResponse<T> {
         this.errorCode = errorCode;
     }
 
+    public <T> ApiResponse(T data) {
+    }
+
     // 성공 응답 생성
     public static <T> ApiResponse<T> success(T data, String message) {
         return new ApiResponse<>(data, message);
+    }
+
+    public static <T> ApiResponse<T> success() {
+        return new ApiResponse<>();
+    }
+
+    public static <T> ApiResponse<T> success(T data) {
+        return new ApiResponse<>(data);
     }
 
     // 실패 응답
