@@ -3,7 +3,6 @@ package tony.project.steam.domain.profile.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import tony.project.steam.domain.auth.entity.User;
 
 import java.time.LocalDateTime;
 

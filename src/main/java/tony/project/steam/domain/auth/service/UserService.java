@@ -2,14 +2,13 @@ package tony.project.steam.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import tony.project.steam.domain.auth.mapper.UserMapper;
 import tony.project.steam.domain.auth.entity.dto.response.UserSearchResponse;
+import tony.project.steam.domain.auth.mapper.UserMapper;
 
 import java.util.List;
 

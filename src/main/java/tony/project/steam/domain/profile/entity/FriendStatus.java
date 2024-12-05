@@ -1,7 +1,5 @@
 package tony.project.steam.domain.profile.entity;
 
-import lombok.Getter;
-
 public enum FriendStatus {
     WAITING,
     ACCEPTED,
