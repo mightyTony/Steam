@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--<mapper namespace="tony.project.steam.domain.복사.mapper.복사Mapper">-->
+
+<!--</mapper>-->
+<mapper namespace="tony.project.steam.domain.auth.mapper.AuthMapper">
+    <resultMap id="userResultMap" type="tony.project.steam.domain.auth.entity.User">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="profilePicture" column="profile_picture" />
+        <result property="role" column="role" javaType="tony.project.steam.domain.auth.entity.Role" />
+        <result property="createdDate" column="created_date" />
+        <result property="modifiedDate" column="modified_date" />
+    </resultMap>
+
+    <resultMap id="userResultMapWithOutPassword" type="tony.project.steam.domain.auth.entity.User">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="profilePicture" column="profile_picture" />
+        <result property="role" column="role" javaType="tony.project.steam.domain.auth.entity.Role" />
+        <result property="createdDate" column="created_date" />
+        <result property="modifiedDate" column="modified_date" />
+    </resultMap>
+
+    <!-- save   -->
+    <insert id="save" parameterType="tony.project.steam.domain.auth.entity.User">
+        INSERT INTO user (
+         user_id, username, password, name, email, phone_number, profile_picture, role, created_date, modified_date
+        ) VALUE (
+            #{userId}, #{username}, #{password}, #{name}, #{email}, #{phoneNumber}, #{profilePicture}, #{role.name}, NOW(), NOW()
+        )
+    </insert>
+
+    <!-- findByUserId -->
+    <select id="findByUserId" resultMap="userResultMap">
+        SELECT
+            id, user_id, username, name, email, password, phone_number, profile_picture, role, created_date, modified_date
+        FROM
+            user
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="existsByEmail" resultType="boolean">
+        SELECT
+            COUNT(*) > 0
+        FROM
+            user
+        WHERE email = #{email}
+    </select>
+    
+    <select id="existsByUserId" resultType="boolean">
+        SELECT
+            COUNT(*) > 0
+        FROM
+            user
+        WHERE user_id = #{userId}
+    </select>
+    
+    <select id="existsByPhoneNumber" resultType="boolean">
+        SELECT
+            COUNT(*) > 0
+        FROM
+            user
+        WHERE phone_number = #{phoneNumber}
+    </select>
+
+    <select id="existsByNickname" resultType="boolean">
+        SELECT
+            COUNT(*) > 0
+        FROM
+            user
+        WHERE username = #{nickname}
+    </select>
+
+</mapper>

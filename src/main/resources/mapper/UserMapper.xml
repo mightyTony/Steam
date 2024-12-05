@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tony.project.steam.domain.auth.mapper.UserMapper">
+    <select id="searchUsersPaging" resultType="tony.project.steam.domain.auth.entity.dto.response.UserSearchResponse">
+        SELECT id, username, profile_picture
+        FROM user
+        WHERE username LIKE CONCAT('%', #{keyword}, '%')
+        OR 
+              user_id LIKE  CONCAT('%', #{keyword}, '%')
+        LIMIT #{offset}, #{size}
+    </select>
+    
+    <select id="countSearchedUsers" resultType="int">
+        SELECT COUNT(*)
+        FROM user
+        WHERE username LIKE CONCAT('%', #{keyword}, '%')
+        OR
+              user_id LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+</mapper>

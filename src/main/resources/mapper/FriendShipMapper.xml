@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tony.project.steam.domain.profile.mapper.FriendShipMapper">
+    <resultMap id="friendshipResultMap" type="tony.project.steam.domain.profile.entity.Friendship">
+        <id property="id" column="id" />
+        <result property="user" column="user" />
+        <result property="friend" column="friend" />
+        <result property="status" column="status" />
+        <result property="createdDate" column="created_date" />
+        <result property="modifiedDate" column="modified_date" />
+    </resultMap>
+
+    <select id="findFriendByUserAndFriend" resultMap="friendshipResultMap">
+        SELECT
+            id, user_id, friend_id, status, created_date, modified_date
+        FROM friendship
+        WHERE user_id = #{user.id} AND friend_id = #{friend.id}
+    </select>
+
+    <select id="findFriendRequest" resultType="boolean">
+        SELECT
+            COUNT(*) > 0
+        FROM
+            friendship
+        WHERE id = #{friendshipRequestId}
+    </select>
+
+    <insert id="save">
+        INSERT INTO friendship(
+           user_id, friend_id, status, created_date, modified_date
+        )
+        VALUES(
+                #{user_id}, #{friend_id}, #{status}, NOW(), NOW()
+              )
+    </insert>
+
+    <select id="findFriendRequests" resultType="tony.project.steam.domain.profile.entity.dto.response.FriendshipResponse">
+        SELECT
+            u.id,
+            u.username AS nickname,
+            u.profile_picture
+        FROM friendship f
+        INNER JOIN user u
+        ON f.user_id = u.id
+        WHERE
+            f.status = 'WAITING'
+        ORDER BY f.created_date DESC
+    </select>
+
+    <update id="updateFriendshipStatus">
+        UPDATE friendship
+        <set>
+            <if test="status.toString() == 'ACCEPTED'">
+                status = #{status.value},
+                modified_date = NOW()
+            </if>
+            <if test="status.toString() == 'REJECTED'">
+                status = #{status.value},
+                modified_date = NOW()
+            </if>
+        </set>
+        WHERE id = #{friendshipRequestId}
+    </update>
+
+    <delete id="deleteById" >
+        DELETE
+        FROM friendship
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
