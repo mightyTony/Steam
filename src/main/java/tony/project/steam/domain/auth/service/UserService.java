@@ -32,4 +32,9 @@ public class UserService {
         // Page 객체
         return new PageImpl<>(users, pageable, totalInUsers);
     }
+
+    public List<UserSearchResponse> getRandomUserLists() {
+
+        return userMapper.getRandomUsers();
+    }
 }

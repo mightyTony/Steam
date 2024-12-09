@@ -13,6 +13,8 @@ import tony.project.steam.common.ApiResponse;
 import tony.project.steam.domain.auth.entity.dto.response.UserSearchResponse;
 import tony.project.steam.domain.auth.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -31,6 +33,12 @@ public class UserController {
     ) {
         Page<UserSearchResponse> result = userService.searchUsersPaging(keyword, page, size);
 
+        return ResponseEntity.ok(ApiResponse.success(result));
+    }
+
+    @GetMapping("/random")
+    public ResponseEntity<ApiResponse<List<UserSearchResponse>>> getRandomUserList() {
+        List<UserSearchResponse> result = userService.getRandomUserLists();
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 

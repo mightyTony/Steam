@@ -22,6 +22,11 @@ public class ApiResponse<T> {
         this.message = message;
     }
 
+    public ApiResponse(T data) {
+        this.success = true;
+        this.data = data;
+    }
+
     // 실패
     private ApiResponse(String message, String errorCode) {
         this.success = false;
@@ -29,8 +34,6 @@ public class ApiResponse<T> {
         this.errorCode = errorCode;
     }
 
-    public <T> ApiResponse(T data) {
-    }
 
     // 성공 응답 생성
     public static <T> ApiResponse<T> success(T data, String message) {

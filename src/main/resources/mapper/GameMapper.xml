@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tony.project.steam.domain.game.mapper.GameMapper">
+    <insert id="postGame" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO game (
+                          name, developer, publisher, content, price, picture, release_date
+        ) VALUES (
+                  #{name}, #{developer}, #{publisher}, #{content}, #{price}, #{picture}, #{release_date}
+        )
+    </insert>
+
+    <insert id="postGenre">
+        INSERT INTO genre (game_code, genre_1, genre_2, genre_3)
+        VALUES ( #{gameCode}, #{genre.genre_1}, #{genre.genre_2}, #{genre.genre_3})
+    </insert>
+</mapper>

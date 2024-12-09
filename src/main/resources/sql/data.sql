@@ -72,6 +72,7 @@ CREATE TABLE game (
                       created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                       modified_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+ALTER TABLE game ALTER COLUMN sales set DEFAULT 0;
 
 # 게임 장르 테이블
 CREATE TABLE genre (

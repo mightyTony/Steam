@@ -19,7 +19,11 @@ public enum ErrorCode {
 
     // Friend
     ALREADY_REQUESTED(HttpStatus.BAD_REQUEST, "FRIENDSHIP-001" ,"이미 친구 관계 이거나 친구 요청이 있습니다." ),
-    REQUEST_NOT_FOUND(HttpStatus.BAD_REQUEST,"FREIENDSHIP-002" , "존재 하지 않은 요청 입니다.");
+    REQUEST_NOT_FOUND(HttpStatus.BAD_REQUEST,"FREIENDSHIP-002" , "존재 하지 않은 요청 입니다."),
+
+    // GAME
+    GAME_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "GAME-001" ,"이미 등록 된 게임 입니다." ),
+    GAME_NOT_FOUND(HttpStatus.BAD_REQUEST,"GAME-002" , "없는 게임 입니다.");
 
     private final HttpStatus status;
     private final String code;

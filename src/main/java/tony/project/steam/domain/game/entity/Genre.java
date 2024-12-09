@@ -1,6 +1,7 @@
 package tony.project.steam.domain.game.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,12 +14,12 @@ public class Genre {
     private String genre_2;
     private String genre_3;
 
-    public static Genre createGenre(Long game_code, String genre_1, String genre_2, String genre_3) {
-        Genre genre = new Genre();
-        genre.game_code = game_code;
-        genre.genre_1 = genre_1;
-        genre.genre_2 = genre_2;
-        genre.genre_3 = genre_3;
-        return genre;
+
+    @Builder
+    public Genre(Long game_code, String genre_1, String genre_2, String genre_3) {
+        this.game_code = game_code;
+        this.genre_1 = genre_1;
+        this.genre_2 = genre_2;
+        this.genre_3 = genre_3;
     }
 }
