@@ -2,7 +2,6 @@ package tony.project.steam.domain.game.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Page;
 import tony.project.steam.domain.game.entity.Game;
 import tony.project.steam.domain.game.entity.Genre;
 import tony.project.steam.domain.game.entity.dto.response.GameDetailResponse;

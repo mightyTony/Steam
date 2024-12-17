@@ -2,7 +2,6 @@ package tony.project.steam.domain.auth.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import tony.project.steam.domain.auth.entity.dto.response.UserSearchResponse;
 
 import java.util.List;

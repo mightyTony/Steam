@@ -1,7 +1,7 @@
 package tony.project.steam.domain.order.mapper;
 
-import org.apache.ibatis.annotations.*;
-import org.springframework.transaction.annotation.Transactional;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tony.project.steam.domain.order.entity.Payment;
 
 @Mapper

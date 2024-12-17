@@ -2,7 +2,6 @@ package tony.project.steam.domain.order.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,9 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import tony.project.steam.domain.game.validator.GameValidator;
 import tony.project.steam.domain.order.entity.Payment;
@@ -23,9 +19,6 @@ import tony.project.steam.domain.order.entity.dto.response.KakaoPayReadyResponse
 import tony.project.steam.domain.order.mapper.PaymentMapper;
 import tony.project.steam.exception.CustomException;
 import tony.project.steam.exception.ErrorCode;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 @Service

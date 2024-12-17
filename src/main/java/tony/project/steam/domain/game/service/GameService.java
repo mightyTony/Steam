@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import tony.project.steam.domain.game.entity.dto.response.GameDetailResponse;
 import tony.project.steam.domain.game.entity.dto.response.GameSearchResponse;
 import tony.project.steam.domain.game.mapper.GameMapper;

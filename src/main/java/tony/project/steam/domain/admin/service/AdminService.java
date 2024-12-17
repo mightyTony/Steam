@@ -10,7 +10,6 @@ import tony.project.steam.domain.admin.validator.AdminValidator;
 import tony.project.steam.domain.game.entity.Game;
 import tony.project.steam.domain.game.entity.Genre;
 import tony.project.steam.domain.game.mapper.GameMapper;
-import tony.project.steam.exception.CustomException;
 
 @Service
 @Slf4j
