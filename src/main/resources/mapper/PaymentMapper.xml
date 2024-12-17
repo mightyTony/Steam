@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tony.project.steam.domain.order.mapper.PaymentMapper">
+    <insert id="savePayment" useGeneratedKeys="true" keyProperty="id" parameterType="tony.project.steam.domain.order.entity.Payment">
+        INSERT INTO
+        payment (user_code, game_code, status, created_date, modified_date)
+        VALUES (#{userCode}, #{gameCode}, #{status}, NOW(), NOW())
+    </insert>
+
+    <update id="updateTid">
+        UPDATE payment
+        SET tid = #{tid}
+        WHERE id = #{payment_id}
+    </update>
+    
+    <select id="findTidById" resultType="String">
+        SELECT tid
+        FROM payment
+        WHERE id = #{pid}
+    </select>
+
+    <select id="findUserCodeById" resultType="Long">
+        SELECT user_code
+        FROM payment
+        WHERE id = #{pid}
+    </select>
+
+    <!-- 결제 상태 업데이트 -->
+    <update id="updatePaymentStatus">
+        UPDATE payment SET tid = #{tid} WHERE id = #{pid}
+    </update>
+
+    <select id="findPayment" resultType="tony.project.steam.domain.order.entity.Payment">
+        SELECT id, user_code, game_code, tid, status, created_date, modified_date
+        FROM payment
+        WHERE id = #{pid}
+    </select>
+</mapper>

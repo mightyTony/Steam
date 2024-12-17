@@ -56,6 +56,7 @@ public class FriendShipController {
         return ResponseEntity.ok(ApiResponse.success(null,"반영 되었습니다."));
     }
 
+    // 친구 삭제
     @DeleteMapping("/{friendshipId}")
     public ResponseEntity<ApiResponse<Void>> deleteFriendship(@PathVariable Long friendshipId) {
         friendShipService.deleteFriendRequest(friendshipId);

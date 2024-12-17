@@ -23,7 +23,10 @@ public enum ErrorCode {
 
     // GAME
     GAME_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "GAME-001" ,"이미 등록 된 게임 입니다." ),
-    GAME_NOT_FOUND(HttpStatus.BAD_REQUEST,"GAME-002" , "없는 게임 입니다.");
+    GAME_NOT_FOUND(HttpStatus.BAD_REQUEST,"GAME-002" , "없는 게임 입니다."),
+
+    // 결제
+    PAYMENT_NOT_FOUND(HttpStatus.BAD_REQUEST,"PAYMENT-001" ,"결제 TID를 찾을 수 없습니다");
 
     private final HttpStatus status;
     private final String code;

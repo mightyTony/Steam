@@ -5,15 +5,81 @@
 
 <mapper namespace="tony.project.steam.domain.game.mapper.GameMapper">
     <insert id="postGame" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO game (
-                          name, developer, publisher, content, price, picture, release_date
-        ) VALUES (
-                  #{name}, #{developer}, #{publisher}, #{content}, #{price}, #{picture}, #{release_date}
-        )
+        INSERT INTO game (name, developer, publisher, content, price, picture, release_date) 
+        VALUES ( #{name}, #{developer}, #{publisher}, #{content}, #{price}, #{picture}, #{release_date})
     </insert>
 
     <insert id="postGenre">
         INSERT INTO genre (game_code, genre_1, genre_2, genre_3)
         VALUES ( #{gameCode}, #{genre.genre_1}, #{genre.genre_2}, #{genre.genre_3})
     </insert>
+    
+    <select id="getTrendingGames" resultType="tony.project.steam.domain.game.entity.dto.response.GameSearchResponse">
+        SELECT
+            g.id, g.name, g.picture, g.price, g.discount, g.release_date, ge.genre_1, ge.genre_2, ge.genre_3
+        FROM
+            game g
+        LEFT JOIN genre ge
+        ON g.id = ge.id
+        WHERE g.on_sale = 1
+        ORDER BY
+            g.sales DESC
+        LIMIT #{size} OFFSET #{offset};
+    </select>
+
+    <select id="getNewGames" resultType="tony.project.steam.domain.game.entity.dto.response.GameSearchResponse">
+        SELECT
+            g.id, g.name, g.picture, g.price, g.discount, g.release_date, ge.genre_1, ge.genre_2, ge.genre_3
+        FROM
+            game g
+                LEFT JOIN genre ge
+                          ON g.id = ge.id
+        WHERE g.on_sale = 1
+        ORDER BY
+            release_date DESC
+        LIMIT #{size} OFFSET #{offset};
+    </select>
+    
+    <select id="searchGamesPaging" resultType="tony.project.steam.domain.game.entity.dto.response.GameSearchResponse">
+        SELECT g.id, g.name, g.picture, g.price, g.discount, g.release_date, ge.genre_1, ge.genre_2, ge.genre_3
+        FROM game g
+        JOIN genre ge ON g.id = ge.game_code
+        WHERE name LIKE CONCAT('%', #{keyword}, '%') OR developer LIKE CONCAT('%', #{keyword}, '%')
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="searchOnSales" resultType="tony.project.steam.domain.game.entity.dto.response.GameSearchResponse">
+        SELECT g.id, g.name, g.picture, g.price, g.discount, g.release_date, ge.genre_1, ge.genre_2, ge.genre_3
+        FROM game g
+                 JOIN genre ge ON g.id = ge.game_code
+        WHERE discount > 0 AND on_sale = true
+        ORDER BY sales DESC, discount DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <select id="isExistGame" resultType="boolean">
+        SELECT
+            EXISTS(
+                SELECT 1
+                FROM game
+                where id = #{gameCode}
+            )
+    </select>
+
+    <select id="getGameDetails" resultType="tony.project.steam.domain.game.entity.dto.response.GameDetailResponse">
+        SELECT g.id, g.name, g.developer, g.publisher,
+               g.content, g.price, g.picture, g.sales,
+               g.discount, g.on_sale, g.release_date,
+               ge.genre_1, ge.genre_2, ge.genre_3
+        FROM game g
+        JOIN genre ge ON g.id = ge.id
+        WHERE g.id = #{gameCode}
+    </select>
+
+    <select id="findGameNameById" resultType="String">
+        SELECT name
+        FROM game
+        WHERE id = #{gameCode}
+        LIMIT 1
+    </select>
 </mapper>
