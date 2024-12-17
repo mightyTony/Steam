@@ -26,7 +26,8 @@ public enum ErrorCode {
     GAME_NOT_FOUND(HttpStatus.BAD_REQUEST,"GAME-002" , "없는 게임 입니다."),
 
     // 결제
-    PAYMENT_NOT_FOUND(HttpStatus.BAD_REQUEST,"PAYMENT-001" ,"결제 TID를 찾을 수 없습니다");
+    PAYMENT_NOT_FOUND(HttpStatus.BAD_REQUEST,"PAYMENT-001" ,"결제 TID를 찾을 수 없습니다"),
+    PAYMENT_HAS_NO_RESPONSE(HttpStatus.BAD_REQUEST,"PAYMENT-002" , "카카오페이 API 응답 없음");
 
     private final HttpStatus status;
     private final String code;

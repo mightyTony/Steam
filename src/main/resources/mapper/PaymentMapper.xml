@@ -4,6 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="tony.project.steam.domain.order.mapper.PaymentMapper">
+    <resultMap id="PaymentResultMap" type="tony.project.steam.domain.order.entity.Payment">
+        <id property="id" column="id"/>
+        <result property="userCode" column="user_code"/>
+        <result property="gameCode" column="game_code"/>
+        <result property="tid" column="tid"/>
+        <result property="price" column="price"/>
+        <result property="status" column="status"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="modifiedDate" column="modified_date"/>
+    </resultMap>
+
     <insert id="savePayment" useGeneratedKeys="true" keyProperty="id" parameterType="tony.project.steam.domain.order.entity.Payment">
         INSERT INTO
         payment (user_code, game_code, status, created_date, modified_date)
@@ -33,9 +44,25 @@
         UPDATE payment SET tid = #{tid} WHERE id = #{pid}
     </update>
 
-    <select id="findPayment" resultType="tony.project.steam.domain.order.entity.Payment">
-        SELECT id, user_code, game_code, tid, status, created_date, modified_date
+    <select id="findPayment" resultMap="PaymentResultMap">
+        SELECT id,
+               user_code,
+               game_code,
+               tid,
+               price,
+               status,
+               created_date,
+               modified_date
         FROM payment
         WHERE id = #{pid}
     </select>
+
+    <update id="updateTidAndPrice">
+        UPDATE payment
+        SET tid = #{tid} , price = #{price}
+        WHERE id = #{pid}
+    </update>
+
+
+
 </mapper>

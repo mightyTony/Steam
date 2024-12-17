@@ -114,7 +114,7 @@ public class KakaoPayService {
         // payment 조회
         Payment payment = paymentMapper.findPayment(paymentId);
 
-
+        log.info("paymend.getUserCode() : {}", payment.getUserCode().toString());
         // Request param
         ApproveRequest approveRequest = ApproveRequest.builder()
                 .cid(cid)
@@ -136,7 +136,11 @@ public class KakaoPayService {
         // 승인 결과를 저장한다.
         // save the result of approval
         KakaoPayApprovalResponse res = response.getBody();
-        paymentMapper.updateTidAndPrice(res.getTid(), res.getTotal());
+        if(res != null) {
+            paymentMapper.updateTidAndPrice(payment.getId(), res.getTid(), res.getTotal());
+        }else {
+            throw new CustomException(ErrorCode.PAYMENT_HAS_NO_RESPONSE);
+        }
 
         return res;
     }
