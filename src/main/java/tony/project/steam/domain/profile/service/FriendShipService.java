@@ -76,4 +76,9 @@ public class FriendShipService {
         friendShipMapper.deleteById(id);
     }
 
+    public List<FriendshipResponse> getMyFriends(Long userCode) {
+        List<FriendshipResponse> list = friendShipMapper.getMyFriendsList(userCode);
+
+        return list;
+    }
 }

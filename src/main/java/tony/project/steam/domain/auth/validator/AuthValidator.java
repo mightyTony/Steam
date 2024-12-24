@@ -79,4 +79,9 @@ public class AuthValidator {
         }
 
     }
+
+    public User isUserExistReturnUser(Long userCode) {
+        return authMapper.findByUserCode(userCode)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    }
 }

@@ -64,5 +64,11 @@ public class FriendShipController {
         return ResponseEntity.ok(ApiResponse.success());
     }
 
+    @Operation(summary = "친구 목록 조회")
+    @GetMapping("/{id}/list")
+    public ResponseEntity<ApiResponse<List<FriendshipResponse>>> getMyFriends(@PathVariable("id") Long userCode) {
+        List<FriendshipResponse> list = friendShipService.getMyFriends(userCode);
 
+        return ResponseEntity.ok(ApiResponse.success(list));
+    }
 }

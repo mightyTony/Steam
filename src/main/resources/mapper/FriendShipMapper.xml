@@ -71,4 +71,19 @@
         WHERE id = #{id}
     </delete>
 
+    <select id="getMyFriendsList" resultType="tony.project.steam.domain.profile.entity.dto.response.FriendshipResponse">
+        SELECT
+            u.id AS id,
+            u.username AS nickname,
+            u.profile_picture AS profile_picture,
+            f.status,
+            f.created_date
+        FROM friendship f
+        JOIN user u
+        ON u.id = f.friend_id
+        WHERE f.user_id = #{user_code}
+        AND f.status = 'ACCEPTED'
+        ORDER BY f.created_date DESC
+    </select>
+
 </mapper>

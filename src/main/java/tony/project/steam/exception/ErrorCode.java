@@ -27,7 +27,11 @@ public enum ErrorCode {
 
     // 결제
     PAYMENT_NOT_FOUND(HttpStatus.BAD_REQUEST,"PAYMENT-001" ,"결제 TID를 찾을 수 없습니다"),
-    PAYMENT_HAS_NO_RESPONSE(HttpStatus.BAD_REQUEST,"PAYMENT-002" , "카카오페이 API 응답 없음");
+    PAYMENT_HAS_NO_RESPONSE(HttpStatus.BAD_REQUEST,"PAYMENT-002" , "카카오페이 API 응답 없음"),
+
+    // 찜
+    ALREADY_IN_WISH(HttpStatus.BAD_REQUEST, "WISH-001","이미 찜 목록에 있습니다"),
+    WISH_IS_NOT_DELETED(HttpStatus.INTERNAL_SERVER_ERROR, "WISH-002", "찜 목록이 삭제 되지 않았습니다.");
 
     private final HttpStatus status;
     private final String code;

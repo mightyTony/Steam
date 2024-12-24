@@ -68,6 +68,7 @@ public class KakaoPayService {
                 .partnerOrderId(payment.getId().toString())
                 .partnerUserId(userCode.toString())
                 .itemName(gameName)
+                .itemCode(gameCode)
                 .quantity(1)
                 .totalAmount(price)
                 .taxFreeAmount(0)
@@ -129,9 +130,12 @@ public class KakaoPayService {
         // 승인 결과를 저장한다.
         // save the result of approval
         KakaoPayApprovalResponse res = response.getBody();
+
         if(res != null) {
-            paymentMapper.updateTidAndPrice(payment.getId(), res.getTid(), res.getTotal());
+            log.info("[KakaoPayApprovalResponse] res : {}/{}", res.getTid(), res.getAmount().getTotal());
+            paymentMapper.updateTidAndPrice(Long.valueOf(res.getPartner_order_id()), res.getTid(), res.getAmount().getTotal(), "DONE");
         }else {
+            log.error("[KakaoPayApprovalResponse] res is NULL");
             throw new CustomException(ErrorCode.PAYMENT_HAS_NO_RESPONSE);
         }
 

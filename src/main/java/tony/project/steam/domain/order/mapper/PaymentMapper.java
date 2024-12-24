@@ -19,5 +19,5 @@ public interface PaymentMapper {
 
     Payment findPayment(@Param("pid") Long paymentId);
 
-    void updateTidAndPrice(@Param("pid") Long pid, @Param("tid") String tid,@Param("price") int price);
+    void updateTidAndPrice(@Param("pid") Long pid, @Param("tid") String tid, @Param("price") int price, @Param("status") String status);
 }

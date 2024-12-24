@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tony.project.steam.domain.wishlist.mapper.WishMapper">
+    <resultMap id="WishResponse" type="tony.project.steam.domain.wishlist.entity.dto.response.WishResponse">
+        <!-- Wish 테이블 컬럼 매핑 -->
+        <id column="wish_id" property="id"/>
+        <result column="user_code" property="userCode"/>
+        <result column="game_code" property="gameCode"/>
+
+        <!-- Game 테이블 컬럼 매핑 -->
+        <result column="name" property="name"/>
+        <result column="publisher" property="publisher"/>
+        <result column="content" property="content"/>
+        <result column="price" property="price"/>
+        <result column="picture" property="picture"/>
+        <result column="sales" property="sales"/>
+        <result column="discount" property="discount"/>
+        <result column="on_sale" property="on_sale"/>
+        <result column="release_date" property="release_date"/>
+
+        <!-- Genre 테이블 컬럼 매핑 -->
+        <result column="genre_1" property="genre_1"/>
+        <result column="genre_2" property="genre_2"/>
+        <result column="genre_3" property="genre_3"/>
+    </resultMap>
+    
+    <insert id="addItemInWishCart" useGeneratedKeys="true" keyProperty="id" parameterType="tony.project.steam.domain.wishlist.entity.Wish">
+        INSERT INTO wish(user_code, game_code)
+        VALUES (#{userCode}, #{gameCode})
+    </insert>
+
+    <select id="findWish" resultType="boolean" parameterType="map">
+        SELECT EXISTS(
+            SELECT 1
+            FROM wish
+            WHERE user_code = #{user_code}
+              AND game_code = #{game_code}
+        )
+    </select>
+    
+    <select id="getWishByUserCodeAndGameCode" resultMap="WishResponse">
+        SELECT w.id,
+               w.user_code,
+               w.game_code,
+               g.name,
+               g.publisher,
+               g.content,
+               g.price,
+               g.picture,
+               g.sales,
+               g.discount,
+               g.on_sale,
+               g.release_date,
+               gen.genre_1,
+               gen.genre_2,
+               gen.genre_3
+        FROM wish w
+        JOIN game g on w.game_code = g.id
+        LEFT JOIN genre gen ON g.id = gen.game_code
+        WHERE w.user_code = #{userCode} AND w.game_code = #{gameCode}
+    </select>
+
+    <select id="getMyWishGames" resultType="WishResponse">
+        SELECT w.id,
+               w.user_code AS userCode,
+               w.game_code AS gameCode,
+               -- game
+               g.name,
+               g.publisher,
+               g.content,
+               g.price,
+               g.picture,
+               g.sales,
+               g.discount,
+               g.on_sale,
+               g.release_date,
+               -- genre
+               gen.genre_1,
+               gen.genre_2,
+               gen.genre_3
+        FROM wish w
+        JOIN game g on w.game_code = g.id
+        LEFT JOIN genre gen ON g.id = gen.game_code
+
+        WHERE w.user_code = #{user_code}
+        ORDER BY w.id DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <delete id="deleteMyWish">
+        DELETE
+        FROM wish
+        WHERE user_code = #{user_code} AND game_code = #{game_code}
+    </delete>
+
+    <select id="isDeleted" resultType="boolean">
+        SELECT COUNT(*)
+        FROM wish
+        WHERE game_code = #{game_code} and user_code = #{user_code}
+    </select>
+</mapper>

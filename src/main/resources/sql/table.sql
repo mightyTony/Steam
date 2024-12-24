@@ -41,7 +41,7 @@ CREATE TABLE friendship (
 # 프로필 테이블
 CREATE TABLE profile (
     id BIGINT AUTO_INCREMENT PRIMARY KEY ,
-    username VARCHAR(50) NOT NULL UNIQUE ,
+#     username VARCHAR(50) NOT NULL UNIQUE ,
     content TEXT,
     user_code BIGINT
 );
@@ -85,7 +85,7 @@ CREATE TABLE genre (
                        CONSTRAINT FK_game_code_genre FOREIGN KEY (game_code) REFERENCES game(id) ON DELETE CASCADE
 );
 
-# 게임 평점 테이블
+# 게임 상세 댓글 테이블
 CREATE TABLE grade (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY ,
                        content TEXT NOT NULL ,
@@ -97,7 +97,6 @@ CREATE TABLE grade (
                        CONSTRAINT FK_game_code_grade FOREIGN KEY (game_code) REFERENCES game(id) ON DELETE CASCADE,
                        CONSTRAINT FK_user_code_user FOREIGN KEY (user_code) REFERENCES user(id) ON DELETE CASCADE
 );
-
 
 # 찜 테이블
 CREATE TABLE wish (

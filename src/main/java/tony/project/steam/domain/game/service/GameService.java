@@ -22,7 +22,7 @@ public class GameService {
     private final GameValidator gameValidator;
     private final GameMapper gameMapper;
 
-    private int calculateOffset(int page, int size) {
+    public int calculateOffset(int page, int size) {
         return (page - 1) * size;
     }
 

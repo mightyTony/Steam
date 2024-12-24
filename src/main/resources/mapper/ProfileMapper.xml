@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tony.project.steam.domain.profile.mapper.ProfileMapper">
+
+    <!-- 프로필 업데이트 -->
+    <update id="updateMyProfile" parameterType="tony.project.steam.domain.profile.entity.dto.request.ProfileUpdateRequest">
+        UPDATE profile
+        SET
+            content = #{content},
+            user_code = #{user_code}
+        WHERE user_code = #{user_code}
+    </update>
+
+    <select id="getProfileByUserCode" resultType="tony.project.steam.domain.profile.entity.dto.response.ProfileResponse">
+        SELECT p.id AS id,
+               u.username AS nickname,
+               p.content AS content,
+               p.user_code AS userCode,
+               u.profile_picture AS profilePicture
+        FROM profile p
+        JOIN user u on u.id = p.user_code
+        WHERE p.user_code = #{userCode}
+    </select>
+    
+    <insert id="saveProfile" useGeneratedKeys="true" keyProperty="id" parameterType="tony.project.steam.domain.profile.entity.UserProfile">
+        INSERT INTO profile(content, user_code)
+        VALUES (#{content}, #{user_code})
+    </insert>
+</mapper>

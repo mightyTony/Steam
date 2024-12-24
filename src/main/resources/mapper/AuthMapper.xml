@@ -36,7 +36,7 @@
     </resultMap>
 
     <!-- save   -->
-    <insert id="save" parameterType="tony.project.steam.domain.auth.entity.User">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="tony.project.steam.domain.auth.entity.User">
         INSERT INTO user (
          user_id, username, password, name, email, phone_number, profile_picture, role, created_date, modified_date
         ) VALUE (
@@ -51,6 +51,14 @@
         FROM
             user
         WHERE user_id = #{userId}
+    </select>
+    
+    <select id="findByUserCode" resultMap="userResultMap">
+        SELECT
+            id, user_id, username, name, email, password, phone_number, profile_picture, role, created_date, modified_date
+        FROM
+            user
+        WHERE id = #{user_code}
     </select>
 
     <select id="existsByEmail" resultType="boolean">

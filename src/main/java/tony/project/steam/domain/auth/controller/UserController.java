@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tony.project.steam.common.ApiResponse;
 import tony.project.steam.domain.auth.entity.dto.response.UserSearchResponse;
 import tony.project.steam.domain.auth.service.UserService;
@@ -41,6 +38,9 @@ public class UserController {
         List<UserSearchResponse> result = userService.getRandomUserLists();
         return ResponseEntity.ok(ApiResponse.success(result));
     }
+
+//    // 유저 정보 수정
+//    @PatchMapping("/update/{id}")
 
 
 }

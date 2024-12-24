@@ -13,6 +13,9 @@ import tony.project.steam.domain.auth.entity.dto.request.JoinRequest;
 import tony.project.steam.domain.auth.entity.dto.response.TokenResponse;
 import tony.project.steam.domain.auth.mapper.AuthMapper;
 import tony.project.steam.domain.auth.validator.AuthValidator;
+import tony.project.steam.domain.profile.entity.UserProfile;
+import tony.project.steam.domain.profile.entity.dto.request.ProfileCreateRequest;
+import tony.project.steam.domain.profile.service.ProfileService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +29,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisTemplate<String, Object> redisTemplate;
     private final AuthValidator authValidator;
+    private final ProfileService profileService;
 
     // 로그인 처리 및 토큰 발급
     public TokenResponse sendTokens(String userId) {
@@ -59,14 +63,6 @@ public class AuthService {
         // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-//        User user = User.forUser(
-//                request.getUserId(),
-//                request.getUsername(),
-//                encodedPassword,
-//                request.getName(),
-//                request.getEmail(),
-//                request.getProfilePicture(),
-//                request.getPhoneNumber());
         User user = User.builder()
                 .userId(request.getUserId())
                 .username(request.getUsername())
@@ -77,7 +73,14 @@ public class AuthService {
                 .profilePicture(request.getProfilePicture())
                 .build();
 
-//        userRepository.save(user);
         authMapper.save(user);
+
+        // 프로필 생성
+        ProfileCreateRequest profileCreateRequest = ProfileCreateRequest.builder()
+                .user_code(user.getId())
+                .username(user.getUsername())
+                .content(null)
+                .build();
+        profileService.makeProfile(profileCreateRequest);
     }
 }

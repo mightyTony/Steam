@@ -15,6 +15,7 @@ public class ReadyRequest {
     private String partnerOrderId;
     private String partnerUserId;
     private String itemName;
+    private Long itemCode;
     private Integer quantity;
     private Integer totalAmount;
     private Integer taxFreeAmount;

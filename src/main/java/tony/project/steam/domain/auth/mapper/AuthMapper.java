@@ -1,6 +1,7 @@
 package tony.project.steam.domain.auth.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tony.project.steam.domain.auth.entity.User;
 
 import java.util.Optional;
@@ -19,4 +20,6 @@ public interface AuthMapper {
     boolean existsByPhoneNumber(String phoneNumber);
 
     boolean existsByNickname(String nickname);
+
+    Optional<User> findByUserCode(@Param("user_code") Long userCode);
 }

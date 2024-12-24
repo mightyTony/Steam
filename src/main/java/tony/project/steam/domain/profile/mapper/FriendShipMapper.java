@@ -23,4 +23,6 @@ public interface FriendShipMapper {
     boolean findFriendRequest(Long friendshipRequestId);
 
     void deleteById(Long id);
+
+    List<FriendshipResponse> getMyFriendsList(@Param("user_code") Long userCode);
 }

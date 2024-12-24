@@ -59,7 +59,7 @@
 
     <update id="updateTidAndPrice">
         UPDATE payment
-        SET tid = #{tid} , price = #{price}
+        SET tid = #{tid} , price = #{price}, status = #{status}
         WHERE id = #{pid}
     </update>
 
