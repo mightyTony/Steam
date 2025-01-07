@@ -33,7 +33,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.getUserId();
     }
 
     @Override
@@ -57,7 +57,8 @@ public class User implements UserDetails {
     }
 
     @Builder
-    public User(String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
+    public User(Long id,String userId, String username, String password, String name, String email, String phoneNumber, String profilePicture) {
+        this.id = id;
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -67,4 +68,17 @@ public class User implements UserDetails {
         this.profilePicture = profilePicture;
         this.role = Role.ROLE_USER;
     }
+
+    public static User update(Long id,String username, String name, String email, String phoneNumber, String profilePicture ) {
+        User user = new User();
+        user.id = id;
+        user.username = username;
+        user.name = name;
+        user.email = email;
+        user.phoneNumber = phoneNumber;
+        user.profilePicture = profilePicture;
+
+        return user;
+    }
+
 }

@@ -87,17 +87,18 @@ public class JwtTokenProvider {
         return refreshToken;
     }
 
-    public String getUsername(String token) {
-        log.info("[getUsername] 토큰에서 username 조회 시작");
-        String username = Jwts.parserBuilder().setSigningKey(secreyKey).build().parseClaimsJws(token).getBody().getSubject();
-        log.info("[getUsername] 토큰에서 username 조회 완료");
-        return username;
+    public String getUserId(String token) {
+        log.info("[getUserId] 토큰에서 username 조회 시작");
+        String userId = Jwts.parserBuilder().setSigningKey(secreyKey).build().parseClaimsJws(token).getBody().getSubject();
+        log.info("[getUserId] userId = {}", userId);
+        log.info("[getUserId] 토큰에서 username 조회 완료");
+        return userId;
     }
 
     public Authentication getAuthentication(String token) {
         log.info("[getAuthentication] 토큰에서 Authentication 조회 시작");
-        String username = getUsername(token);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        String userId = getUserId(token);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 

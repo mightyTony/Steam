@@ -27,4 +27,15 @@
         ORDER BY RAND()
         LIMIT 5
     </select>
+    
+    <update id="updateUserInfo" parameterType="tony.project.steam.domain.auth.entity.User">
+        UPDATE user
+        SET
+            name = #{name},
+            email = #{email},
+            phone_number = #{phoneNumber},
+            profile_picture = #{profilePicture}
+        WHERE id = #{id}
+    </update>
+    
 </mapper>

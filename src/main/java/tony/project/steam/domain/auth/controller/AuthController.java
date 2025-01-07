@@ -114,7 +114,7 @@ public class AuthController {
         }
         log.info("refreshToken: {}", refreshToken);
 
-        String userId = jwtTokenProvider.getUsername(refreshToken);
+        String userId = jwtTokenProvider.getUserId(refreshToken);
         String newAccessToken = authService.refreshAccessToken(refreshToken, userId);
 
         return ResponseEntity.ok(TokenResponse.sendAccessToken(newAccessToken));

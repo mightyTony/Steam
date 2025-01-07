@@ -1,13 +1,16 @@
 package tony.project.steam.domain.auth.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tony.project.steam.common.ApiResponse;
+import tony.project.steam.domain.auth.entity.dto.request.UserUpdateRequest;
 import tony.project.steam.domain.auth.entity.dto.response.UserSearchResponse;
+import tony.project.steam.domain.auth.entity.dto.response.UserUpdateResponse;
 import tony.project.steam.domain.auth.service.UserService;
 
 import java.util.List;
@@ -39,8 +42,17 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 
-//    // 유저 정보 수정
-//    @PatchMapping("/update/{id}")
+    // 유저 정보 수정
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<ApiResponse<UserUpdateResponse>> updateUserInfo(@PathVariable("id") Long userCode, @RequestBody @Valid UserUpdateRequest request) {
+        log.info("[Patch update/id request : {}", request);
+        UserUpdateResponse response = userService.updateUserInfo(request);
+
+        // 추후
+        //userService.updateRedisUserInfo(response);
+
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
 
 
 }

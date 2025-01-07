@@ -43,7 +43,7 @@ public class AuthValidator {
         // 현재 인증된 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserId = authentication.getName(); // 예: `userId`를 `username`으로 저장했을 경우
-
+        log.info("CurrentUSERID = {}", currentUserId);
         log.info("[AuthValidator] isYou - 현재 유저 아이디: {}, 파라미터 아이디 : {}", currentUserId, userId);
         if(!currentUserId.equals(userId)) {
             throw new CustomException(ErrorCode.ACCESS_DENIED);
