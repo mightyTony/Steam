@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ApiResponse<T> {
 
-    private boolean success;
+    private boolean success = true;
     private T data;
     private String message;
     private String errorCode;
@@ -27,13 +27,11 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
-    // 실패
-    private ApiResponse(String message, String errorCode) {
-        this.success = false;
+    public ApiResponse(String message, String errorCode) {
+        this.success = true;
         this.message = message;
         this.errorCode = errorCode;
     }
-
 
     // 성공 응답 생성
     public static <T> ApiResponse<T> success(T data, String message) {

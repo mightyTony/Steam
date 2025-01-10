@@ -4,6 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="tony.project.steam.domain.profile.mapper.ProfileMapper">
+    <resultMap id="MyGameResultMap" type="tony.project.steam.domain.profile.entity.dto.response.MyGameResponse">
+        <id property="id" column="id" />
+        <result property="user_code" column="user_code" />
+        <result property="game_code" column="game_code" />
+        <result property="created_date" column="created_date" />
+        <result property="name" column="name" />
+        <result property="picture" column="picture" />
+    </resultMap>
+
+    <resultMap id="CommentResultMap" type="tony.project.steam.domain.profile.entity.Comment">
+        <id property="id" column="id" />
+        <result property="user_to" column="user_to" />
+        <result property="user_from" column="user_from" />
+        <result property="content" column="content" />
+        <result property="created_date" column="created_date" />
+        <result property="modified_date" column="modified_date" />
+    </resultMap>
 
     <!-- 프로필 업데이트 -->
     <update id="updateMyProfile" parameterType="tony.project.steam.domain.profile.entity.dto.request.ProfileUpdateRequest">
@@ -29,4 +46,43 @@
         INSERT INTO profile(content, user_code)
         VALUES (#{content}, #{user_code})
     </insert>
+
+    <insert id="addMyGame" useGeneratedKeys="true" keyProperty="id" parameterType="tony.project.steam.domain.profile.entity.MyGame">
+        INSERT INTO mygame(game_code, user_code)
+        VALUES (#{game_code}, #{user_code})
+    </insert>
+
+    <select id="getMyGames" resultMap="MyGameResultMap">
+        SELECT
+            my.id,
+            my.user_code,
+            my.game_code,
+            g.name,
+            g.picture
+        FROM mygame my
+        JOIN game g
+        ON g.id = my.game_code
+        WHERE user_code = #{user_code}
+        ORDER BY my.create_date desc
+    </select>
+
+    <insert id="postComment" useGeneratedKeys="true" keyProperty="id" parameterType="tony.project.steam.domain.profile.entity.Comment">
+        INSERT INTO comment (user_to, user_from, content, created_date, modified_date)
+        VALUES (#{user_to}, #{user_from}, #{content}, #{created_date}, #{modified_date})
+    </insert>
+    
+    <select id="isAuthenticated" resultType="boolean">
+        SELECT
+            EXISTS(
+                SELECT 1
+                FROM user
+                where id = #{to} OR id = #{id}
+            )
+    </select>
+
+    <delete id="deleteComment">
+        DELETE
+        FROM comment
+        WHERE id = #{id}
+    </delete>
 </mapper>

@@ -8,6 +8,7 @@ import tony.project.steam.common.ApiResponse;
 import tony.project.steam.domain.order.entity.dto.response.KakaoPayApprovalResponse;
 import tony.project.steam.domain.order.entity.dto.response.KakaoPayReadyResponse;
 import tony.project.steam.domain.order.service.KakaoPayService;
+import tony.project.steam.domain.profile.service.ProfileService;
 
 @RestController
 @Slf4j
@@ -17,6 +18,7 @@ import tony.project.steam.domain.order.service.KakaoPayService;
 public class PaymentController {
 
     private final KakaoPayService kakaoPayService;
+    private final ProfileService profileService;
 
     // 결제 준비
     @PostMapping("/ready")
@@ -36,6 +38,9 @@ public class PaymentController {
             @RequestParam Long paymentId) {
 
         KakaoPayApprovalResponse response = kakaoPayService.approvePayment(paymentId, pg_token);
+//        response.getItem_name(),response.getItem_code(),response.getPartner_user_id()
+        profileService.addMyGame(response.getItem_code(), response.getPartner_user_id());
+        log.info("res : {} ", response);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
