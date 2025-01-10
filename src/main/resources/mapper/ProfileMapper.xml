@@ -85,4 +85,29 @@
         FROM comment
         WHERE id = #{id}
     </delete>
+
+    <update id="updateComment" parameterType="map">
+        UPDATE comment
+        SET
+            content = #{content},
+            modified_date = NOW()
+        WHERE
+            id = #{comment_id}
+          AND user_to = #{to}
+    </update>
+
+    <!-- 댓글 반환 -->
+    <select id="getCommentById" resultType="tony.project.steam.domain.profile.entity.Comment">
+        SELECT
+            id,
+            user_to,
+            user_from,
+            content,
+            created_date,
+            modified_date
+        FROM
+            comment
+        WHERE
+            id = #{comment_id}
+    </select>
 </mapper>

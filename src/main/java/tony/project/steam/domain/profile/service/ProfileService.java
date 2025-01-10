@@ -18,6 +18,8 @@ import tony.project.steam.domain.profile.entity.dto.response.MyGameResponse;
 import tony.project.steam.domain.profile.entity.dto.response.ProfileResponse;
 import tony.project.steam.domain.profile.mapper.ProfileMapper;
 import tony.project.steam.domain.profile.validator.ProfileValidator;
+import tony.project.steam.exception.CustomException;
+import tony.project.steam.exception.ErrorCode;
 
 import java.util.List;
 
@@ -81,5 +83,20 @@ public class ProfileService {
         profileValidator.isAuthenticated(toUser, user);
         // 2. 삭제
         profileMapper.deleteComment(commentId);
+    }
+
+    @Transactional
+    public Comment updateComment(Long toUser, Long commentId, String content, User user) {
+        // 유저 체크
+        authValidator.isYou(user.getUserId());
+
+        // 업데이트
+        int updatedRows = profileMapper.updateComment(toUser, commentId, content);
+        if (updatedRows == 0) {
+            throw new CustomException(ErrorCode.COMMENT_UPDATE_FAILED);
+        }
+
+        // 수정된 댓글 반환
+        return profileMapper.getCommentById(commentId);
     }
 }

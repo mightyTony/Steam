@@ -30,4 +30,8 @@ public interface ProfileMapper {
     boolean isAuthenticated(@Param("to") Long toUser, Long id);
 
     void deleteComment(@Param("id") Long commentId);
+
+    int updateComment(@Param("to") Long toUser, @Param("comment_id") Long commentId, @Param("content") String content);
+
+    Comment getCommentById(@Param("comment_id") Long commentId);
 }

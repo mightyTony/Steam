@@ -3,6 +3,7 @@ package tony.project.steam.domain.profile.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,18 @@ public class ProfileController {
     }
 
     // 댓글 수정
+    // FIXME 수정 시간 타임존, NOW() 수정 해야함
+    @Operation(summary = "댓글 수정")
+    @PatchMapping("/{id}/comment/{comment_id}")
+    public ResponseEntity<ApiResponse<Comment>> updateComment(@PathVariable("id") Long toUser,
+                                                              @PathVariable("comment_id") Long commentId,
+                                                              @RequestParam("content") String content,
+                                                              @AuthenticationPrincipal User user) {
+        Comment updatedComment = profileService.updateComment(toUser, commentId, content, user);
+
+        return ResponseEntity.ok(ApiResponse.success(updatedComment));
+    }
+
 
     // 댓글 삭제(권한 체크)
     @Operation(summary = "댓글 삭제")
