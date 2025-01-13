@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tony.project.steam.domain.game.mapper.GameReviewMapper">
+    <insert id="postReview" useGeneratedKeys="true" keyProperty="id" parameterType="tony.project.steam.domain.game.entity.Grade">
+        INSERT INTO grade(content, rate, game_code, user_code)
+        VALUES (#{content}, #{rate}, #{game_code}, #{user_code})
+    </insert>
+
+    <select id="isAlreadyWrite" resultType="boolean">
+        SELECT EXISTS(
+            SELECT 1
+            FROM grade
+            WHERE user_code = #{user_code} AND game_code = #{game_code}
+        )
+    </select>
+
+    <select id="getReview" resultType="tony.project.steam.domain.game.entity.Grade">
+        SELECT id, content, rate, game_code, user_code, created_date, modified_date
+        FROM grade
+        WHERE user_code = #{user_code} AND game_code = #{game_code}
+        LIMIT 1
+    </select>
+    
+    <select id="getReviewPaging" resultType="tony.project.steam.domain.game.entity.Grade">
+        SELECT id, content, rate, game_code, user_code, created_date, modified_date
+        FROM grade
+        WHERE game_code = #{game_code}
+        ORDER BY created_date DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+</mapper>

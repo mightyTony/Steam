@@ -18,7 +18,7 @@ public class Grade {
     private LocalDateTime created_date;
     private LocalDateTime modified_date;
 
-    public static Grade createReply(Long game_code, Long user_code, String content, Boolean rate) {
+    public static Grade createReview(Long game_code, Long user_code, String content, Boolean rate) {
         Grade grade = new Grade();
         grade.game_code = game_code;
         grade.user_code = user_code;

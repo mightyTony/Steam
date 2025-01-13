@@ -37,7 +37,10 @@ public enum ErrorCode {
     WISH_IS_NOT_DELETED(HttpStatus.INTERNAL_SERVER_ERROR, "WISH-002", "찜 목록이 삭제 되지 않았습니다."),
 
     // 댓글
-    COMMENT_UPDATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "COMMENT-001" , "댓글 수정이 반영되지 않았습니다." );
+    COMMENT_UPDATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "COMMENT-001" , "댓글 수정이 반영되지 않았습니다." ),
+
+    // 게임 평가
+    ALREADY_WRITE_REVIEW(HttpStatus.BAD_REQUEST,"REVIEW-001" ,"이미 해당 게임 평가를 남겼습니다" );
 
     private final HttpStatus status;
     private final String code;

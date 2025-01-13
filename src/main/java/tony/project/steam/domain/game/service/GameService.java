@@ -23,6 +23,9 @@ public class GameService {
     private final GameMapper gameMapper;
 
     public int calculateOffset(int page, int size) {
+        if (page < 1) {
+            page = 1; // 최소값 보정
+        }
         return (page - 1) * size;
     }
 
