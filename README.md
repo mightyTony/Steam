@@ -10,7 +10,8 @@
 ---
 
 ## 1. ERD 구조
-![erd.png](..%2F..%2F..%2Ferd.png)
+![erd](https://github.com/user-attachments/assets/a2aba8da-3808-4450-9a1d-46fdd7bd35ac)
+
 ---
 
 ## 2. 기술 스택
