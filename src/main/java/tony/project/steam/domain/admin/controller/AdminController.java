@@ -39,4 +39,8 @@ public class AdminController {
 
     //TODO
     // 상품 삭제
+
+    // -- 통계
+    // 총 게임 판매량
+    // 상세 조회 수익 or 판매량
 }

@@ -151,7 +151,34 @@ CREATE TABLE comment (
     CONSTRAINT FK_comment_FROM FOREIGN KEY (user_from) REFERENCES user(id) ON DELETE CASCADE
 );
 
+#  인덱스
+CREATE UNIQUE INDEX idx_user_user_id ON user (user_id);
+CREATE UNIQUE INDEX idx_user_email ON user (email);
+CREATE UNIQUE INDEX idx_user_phone_number ON user (phone_number);
 
-#  CONSTRAINT FK_friendship_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-#     CONSTRAINT FK_friendship_friend FOREIGN KEY (friend_id) REFERENCES user(id) ON DELETE CASCADE,
-#     UNIQUE (user_id, friend_id)
+CREATE INDEX idx_friendship_user_friend ON friendship (user_id, friend_id);
+
+CREATE INDEX idx_profile_user_code ON profile (user_code);
+
+CREATE UNIQUE INDEX idx_game_name ON game (name);
+CREATE INDEX idx_game_developer ON game (developer);
+CREATE INDEX idx_game_publisher ON game (publisher);
+
+CREATE INDEX idx_genre_game_code ON genre (game_code);
+
+CREATE INDEX idx_grade_game_code ON grade (game_code);
+CREATE INDEX idx_grade_user_code ON grade (user_code);
+CREATE INDEX idx_grade_game_user ON grade (game_code, user_code);
+
+CREATE INDEX idx_wish_user_game ON wish (user_code, game_code);
+
+CREATE INDEX idx_cart_user_game ON cart (user_code, game_code);
+
+CREATE INDEX idx_mygame_user_game ON mygame (user_code, game_code);
+
+CREATE INDEX idx_payment_user_code ON payment (user_code);
+CREATE INDEX idx_payment_game_code ON payment (game_code);
+CREATE INDEX idx_payment_user_game ON payment (user_code, game_code);
+
+CREATE INDEX idx_comment_user_to ON comment (user_to);
+CREATE INDEX idx_comment_user_from ON comment (user_from);
